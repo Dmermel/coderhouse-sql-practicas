@@ -1,86 +1,81 @@
-Ventas_Tech_DB
+# Ventas_Tech_DB
 
-Práctica de SQL realizada en SQL Server para construir una base de datos relacional de ventas de una tienda de tecnología.
+Proyecto práctico de SQL realizado en SQL Server para crear una base de datos relacional de ventas de una tienda de tecnología.
 
-Estructura del modelo
+## Objetivo
 
-La base de datos contiene cuatro tablas relacionadas:
+El objetivo de esta práctica es construir una base de datos desde cero, definiendo correctamente las tablas, sus relaciones y las restricciones necesarias para mantener la integridad de los datos.
 
-categorias: categorías de los productos.
+También se realiza una carga inicial de información para poder utilizar la base en futuras consultas y análisis.
 
-clientes: información básica de los clientes.
+## Estructura de la base de datos
 
-productos: productos disponibles y su categoría.
+La base está compuesta por cuatro tablas:
 
-ventas: registro de las operaciones de venta.
+- `categorias`: contiene las distintas categorías de productos.
+- `clientes`: almacena los datos principales de los clientes.
+- `productos`: contiene los productos disponibles y su categoría correspondiente.
+- `ventas`: registra las operaciones de venta realizadas.
 
 Las relaciones principales son:
 
-categorias 1 productos
+- Una categoría puede tener varios productos.
+- Un cliente puede realizar varias ventas.
+- Un producto puede aparecer en varias ventas.
 
-clientes 1 ventas
+El modelo puede representarse de la siguiente forma:
 
-productos 1 ventas
+```text
+categorias (1) ──── (N) productos (1) ──── (N) ventas (N) ──── (1) clientes
+```
 
-Contenido del script
+## Contenido del script
 
-El archivo ventas_tech_db.sql incluye:
+El archivo `ventas_tech_db.sql` incluye:
 
-Creación de la base Ventas_Tech_DB si todavía no existe.
+1. Creación de la base de datos `Ventas_Tech_DB`.
+2. Eliminación de tablas existentes con `DROP TABLE IF EXISTS`.
+3. Creación de las tablas `categorias`, `clientes`, `productos` y `ventas`.
+4. Definición de claves primarias y claves foráneas.
+5. Uso de restricciones como `NOT NULL`, `UNIQUE` y valores `DEFAULT`.
+6. Carga de datos iniciales mediante `INSERT INTO`.
+7. Consultas de validación para comprobar que la información se cargó correctamente.
 
-Eliminación previa de las tablas con DROP TABLE IF EXISTS.
+## Cómo ejecutar el script
 
-Creación de las tablas con sus claves primarias y foráneas.
+1. Abrir SQL Server Management Studio.
+2. Conectarse al servidor de SQL Server.
+3. Abrir el archivo `ventas_tech_db.sql`.
+4. Ejecutar el script completo con `F5` o con el botón **Ejecutar**.
+5. Actualizar el panel de bases de datos si es necesario.
+6. Verificar que se haya creado la base `Ventas_Tech_DB` con sus cuatro tablas.
 
-Carga de datos iniciales con INSERT.
+El script está preparado para poder ejecutarse nuevamente, ya que primero elimina las tablas existentes respetando el orden de sus dependencias.
 
-Consultas finales para validar que los datos se hayan cargado correctamente.
+## Datos cargados
 
-Cómo ejecutar el proyecto
+La carga inicial contiene:
 
-Abrir SQL Server Management Studio (SSMS).
+- 4 categorías.
+- 5 clientes.
+- 6 productos.
+- 10 ventas.
 
-Conectarse a una instancia de SQL Server.
+Para comprobar la cantidad de ventas se puede ejecutar:
 
-Abrir el archivo ventas_tech_db.sql.
-
-Ejecutar el script completo con F5 o con el botón Ejecutar.
-
-Actualizar el panel Bases de datos si es necesario.
-
-Verificar que exista la base Ventas_Tech_DB.
-
-Comprobar que se hayan creado las tablas categorias, clientes, productos y ventas.
-
-El script puede ejecutarse nuevamente porque primero elimina las tablas existentes respetando el orden de las dependencias.
-
-Validación esperada
-
-Al finalizar:
-
-categorias: 4 registros.
-
-clientes: 5 registros.
-
-productos: 6 registros.
-
-ventas: 10 registros.
-
-La consulta:
-
+```sql
 SELECT COUNT(*) AS cantidad_ventas
 FROM ventas;
+```
 
-debe devolver 10.
+El resultado esperado es:
 
-Correcciones aplicadas
+```text
+10
+```
 
-Se corrigieron los puntos señalados en la devolución:
+## Tecnologías utilizadas
 
-Se eliminó la definición duplicada de la tabla productos.
-
-Se eliminaron comandos de cierre sueltos que generaban errores de sintaxis.
-
-Se unificó la indentación de las sentencias CREATE TABLE e INSERT.
-
-Se agregó este archivo README.md con la descripción e instrucciones de ejecución.
+- SQL Server
+- SQL Server Management Studio (SSMS)
+- GitHub
