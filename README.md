@@ -1,134 +1,86 @@
-# Práctica SQL - Filtros y funciones de agregación
+Ventas_Tech_DB
 
-En esta práctica trabajé con consultas SQL aplicando filtros, operadores lógicos, agrupaciones y funciones de agregación.
+Práctica de SQL realizada en SQL Server para construir una base de datos relacional de ventas de una tienda de tecnología.
 
-El objetivo fue entender cómo seleccionar información específica de una tabla y cómo resumir datos para obtener resultados útiles para un análisis.
+Estructura del modelo
 
-## Operadores de filtrado
+La base de datos contiene cuatro tablas relacionadas:
 
-Para filtrar registros se utiliza `WHERE`.
+categorias: categorías de los productos.
 
-Por ejemplo, si queremos obtener solamente los productos cuyo precio sea mayor a 1000:
+clientes: información básica de los clientes.
 
-```sql
-SELECT *
-FROM productos
-WHERE precio > 1000;
-```
+productos: productos disponibles y su categoría.
 
-También se pueden combinar varias condiciones utilizando operadores como `AND`, `OR` y `NOT`.
+ventas: registro de las operaciones de venta.
 
-Por ejemplo:
+Las relaciones principales son:
 
-```sql
-SELECT *
-FROM ventas
-WHERE categoria = 'Computación'
-AND total_venta > 1000;
-```
+categorias 1 productos
 
-En este caso deben cumplirse las dos condiciones.
+clientes 1 ventas
 
-## Operador IN
+productos 1 ventas
 
-El operador `IN` permite buscar varios valores posibles dentro de una misma columna sin tener que escribir varios `OR`.
+Contenido del script
 
-Por ejemplo:
+El archivo ventas_tech_db.sql incluye:
 
-```sql
-SELECT *
-FROM ventas
-WHERE categoria IN ('Computación', 'Accesorios', 'Audio');
-```
+Creación de la base Ventas_Tech_DB si todavía no existe.
 
-Esto permite obtener las ventas que pertenezcan a cualquiera de esas tres categorías de una forma más simple y legible.
+Eliminación previa de las tablas con DROP TABLE IF EXISTS.
 
-## GROUP BY
+Creación de las tablas con sus claves primarias y foráneas.
 
-`GROUP BY` permite agrupar registros que tienen un mismo valor.
+Carga de datos iniciales con INSERT.
 
-Por ejemplo, si queremos saber cuántos pedidos realizó cada cliente:
+Consultas finales para validar que los datos se hayan cargado correctamente.
 
-```sql
-SELECT
-    cliente_id,
-    COUNT(*) AS cantidad_pedidos
-FROM pedidos
-GROUP BY cliente_id;
-```
+Cómo ejecutar el proyecto
 
-En este caso, `GROUP BY cliente_id` genera un grupo por cada cliente y `COUNT(*)` cuenta cuántos pedidos tiene cada uno.
+Abrir SQL Server Management Studio (SSMS).
 
-El alias `AS cantidad_pedidos` se utiliza para que el resultado tenga un nombre más fácil de interpretar.
+Conectarse a una instancia de SQL Server.
 
-## Funciones de agregación
+Abrir el archivo ventas_tech_db.sql.
 
-Las funciones de agregación permiten realizar cálculos sobre varios registros.
+Ejecutar el script completo con F5 o con el botón Ejecutar.
 
-Algunas de las principales son:
+Actualizar el panel Bases de datos si es necesario.
 
-- `COUNT()` para contar registros.
-- `SUM()` para sumar valores.
-- `AVG()` para obtener un promedio.
-- `MIN()` para obtener el valor mínimo.
-- `MAX()` para obtener el valor máximo.
+Verificar que exista la base Ventas_Tech_DB.
 
-Por ejemplo:
+Comprobar que se hayan creado las tablas categorias, clientes, productos y ventas.
 
-```sql
-SELECT
-    cliente_id,
-    SUM(total_pagado) AS total_cliente
-FROM pedidos
-GROUP BY cliente_id;
-```
+El script puede ejecutarse nuevamente porque primero elimina las tablas existentes respetando el orden de las dependencias.
 
-Esta consulta muestra cuánto dinero pagó en total cada cliente.
+Validación esperada
 
-## Diferencia entre WHERE y HAVING
+Al finalizar:
 
-`WHERE` y `HAVING` sirven para filtrar información, pero se utilizan en momentos diferentes de la consulta.
+categorias: 4 registros.
 
-`WHERE` filtra los registros antes de realizar una agrupación.
+clientes: 5 registros.
 
-Por ejemplo:
+productos: 6 registros.
 
-```sql
-SELECT *
-FROM pedidos
-WHERE total_pagado > 500;
-```
+ventas: 10 registros.
 
-En cambio, `HAVING` se utiliza para filtrar los resultados obtenidos después de aplicar `GROUP BY`.
+La consulta:
 
-Por ejemplo, si queremos conocer solamente los clientes cuyo total de compras supera los 1000:
+SELECT COUNT(*) AS cantidad_ventas
+FROM ventas;
 
-```sql
-SELECT
-    cliente_id,
-    SUM(total_pagado) AS total_cliente
-FROM pedidos
-GROUP BY cliente_id
-HAVING SUM(total_pagado) > 1000;
-```
+debe devolver 10.
 
-No sería correcto utilizar:
+Correcciones aplicadas
 
-```sql
-WHERE SUM(total_pagado) > 1000
-```
+Se corrigieron los puntos señalados en la devolución:
 
-porque `WHERE` se ejecuta antes de que SQL realice la agrupación y calcule el `SUM()`.
+Se eliminó la definición duplicada de la tabla productos.
 
-Una forma sencilla de recordarlo es:
+Se eliminaron comandos de cierre sueltos que generaban errores de sintaxis.
 
-- `WHERE` filtra registros.
-- `GROUP BY` agrupa registros.
-- Las funciones como `SUM()` o `COUNT()` realizan cálculos sobre esos grupos.
-- `HAVING` filtra los grupos obtenidos.
+Se unificó la indentación de las sentencias CREATE TABLE e INSERT.
 
-## Conclusión
-
-Esta práctica me permitió entender mejor cómo filtrar información y cómo resumir conjuntos de datos utilizando SQL.
-
-También pude diferenciar el uso de `WHERE` y `HAVING`, y comprender cómo combinar `GROUP BY` con funciones como `COUNT()` y `SUM()` para obtener información útil a partir de varias filas.
+Se agregó este archivo README.md con la descripción e instrucciones de ejecución.
