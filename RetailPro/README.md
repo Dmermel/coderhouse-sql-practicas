@@ -48,17 +48,21 @@ Archivo: `m5_consultas_joins.sql`
 
 Incluye consultas con JOIN y UNION ALL para combinar información de distintas tablas y obtener resultados consolidados.
 
+
 ## Cómo ejecutar las consultas
 
-1. Abrir SQL Server Management Studio.
-2. Conectarse a una instancia de SQL Server.
-3. Verificar que la base `Ventas_Tech_DB` esté creada y contenga las tablas y datos necesarios.
-4. Abrir el archivo SQL correspondiente.
-5. Seleccionar `Ventas_Tech_DB` como base de datos activa.
-6. Ejecutar las consultas mediante el botón Ejecutar o la tecla F5.
-7. Revisar los resultados y comprobar que no existan errores.
+Para reproducir las consultas del proyecto se necesita Microsoft SQL Server y SQL Server Management Studio (SSMS).
 
-Los scripts de los módulos 4 y 5 requieren que la base de datos y sus registros estén cargados previamente.
+1. Abrir SSMS y conectarse a una instancia de SQL Server.
+2. Verificar que exista la base de datos `Ventas_Tech_DB`.
+3. Comprobar que las tablas `categorias`, `clientes`, `productos` y `ventas` estén creadas y contengan registros.
+4. Abrir `m4_consultas_negocio.sql` para ejecutar las consultas de análisis comercial.
+5. Abrir `m5_consultas_joins.sql` para ejecutar las consultas relacionales.
+6. Seleccionar `Ventas_Tech_DB` como base activa y ejecutar cada consulta con F5.
+7. Revisar los resultados y comprobar que las consultas se ejecuten sin errores.
+
+**Importante:** los archivos M4 y M5 contienen consultas de análisis. No reemplazan los scripts de creación y carga de la base de datos.
+
 
 ## Integración con Power BI
 
@@ -68,13 +72,22 @@ Se trabajó con Power Query para preparar la información y con un modelo de dat
 
 Además, se incorporó una tabla calendario y medidas DAX para facilitar el análisis de indicadores comerciales.
 
+
 ## Uso de inteligencia artificial
 
-Se utilizó ChatGPT como herramienta de apoyo para revisar consultas SQL, generar propuestas de análisis comercial y mejorar la documentación.
+Durante el Módulo 9 se utilizó ChatGPT como herramienta de apoyo para revisar consultas SQL, interpretar resultados comerciales y mejorar la documentación de RetailPro.
 
-Las sugerencias fueron contrastadas con los resultados obtenidos en SQL Server antes de incorporarlas al proyecto.
+La utilización de IA se trabajó en tres etapas:
 
-La IA se utilizó como asistencia y no como reemplazo de la validación técnica y del criterio analítico.
+1. **Revisión SQL:** se analizó una consulta con INNER JOIN y se incorporaron identificadores de venta y producto para mejorar la trazabilidad.
+2. **Análisis comercial:** se solicitaron tres hallazgos a partir de los resultados reales de las consultas del Módulo 4.
+3. **Documentación:** se generó una propuesta de README y se realizaron correcciones para adaptarla al desarrollo real del proyecto.
+
+Las consultas originales y las propuestas se ejecutaron en SQL Server. Se verificó que la consulta revisada mantuviera los 10 registros y que el importe total fuera de 6.444,00.
+
+En el análisis comercial también se identificó una limitación: algunos hallazgos propuestos por la IA eran similares entre sí y no se contaba con información suficiente para evaluar rentabilidad o tendencias históricas.
+
+Por ese motivo, las respuestas de ChatGPT se utilizaron como punto de partida, manteniendo la validación de datos y la interpretación comercial como responsabilidad del analista.
 
 
 ## Conclusión
